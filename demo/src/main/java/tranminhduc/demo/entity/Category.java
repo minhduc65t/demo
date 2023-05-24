@@ -1,6 +1,7 @@
 package tranminhduc.demo.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import java.util.List;
@@ -14,7 +15,9 @@ public class Category {
     private Long id;
 
     @Column(name = "name")
+    @NotEmpty(message = " ten ko the trong")
     private String name;
+
 
     @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
     private List<Book> books;

@@ -2,6 +2,7 @@ package tranminhduc.demo.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tranminhduc.demo.entity.Book;
 import tranminhduc.demo.entity.Category;
 import tranminhduc.demo.repository.ICategoryRepository;
 
@@ -26,4 +27,14 @@ public class CategoryService {
     public Category saveCategory(Category category){return categoryRepository.save(category);}
 
     public void deleteCategory(Long id){categoryRepository.deleteById(id);}
+
+    public void addCategory(Category category)
+    {
+        categoryRepository.save(category);
+    }
+    public void updateCategory(Category category){
+        categoryRepository.save(category);
+    }
+
 }
+
