@@ -1,24 +1,36 @@
 package tranminhduc.demo.entity;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import tranminhduc.demo.repository.IUserRepository;
 
 import java.util.Collection;
 import java.util.Collections;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class CustomUserDetail implements UserDetails {
 
     private final User user;
 
+    private final IUserRepository userRepository;
+
     public CustomUserDetail(User user, IUserRepository userRepository) {
         this.user = user;
+        this.userRepository = userRepository;
     }
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
+       Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+       String[] roles = userRepository.getRolesOfUser(user.getId());
+       for (String role: roles){
+           authorities.add(new SimpleGrantedAuthority(role));
+       }
+       return authorities;
     }
 
     @Override
